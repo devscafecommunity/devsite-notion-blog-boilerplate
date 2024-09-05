@@ -23,6 +23,31 @@ Devstie Boilerplate é um projeto de código aberto desenvolvido pela comunidade
 
 ## 🏃‍♂️ Como Iniciar
 
+Crie uma conta no notion, e crie 3 tabelas:
+| Nome           | Email                  | Bio                    | Foto                 |
+|----------------|------------------------|------------------------|----------------------|
+| John Doe       | john@example.com       | Desenvolvedor Frontend | ![Foto](link_foto)   |
+| Jane Smith     | jane@example.com       | Engenheira de Software | ![Foto](link_foto)   |
+| Carlos Silva   | carlos@example.com     | Escritor Técnico       | ![Foto](link_foto)   |
+
+
+
+| Título               | Autor         | Data        | Visível | Categoria   | Conteúdo                  |
+|----------------------|---------------|-------------|---------|-------------|---------------------------|
+| Introdução ao Next.js| John Doe      | 2024-09-01  | Sim     | Tutorial    | ![Link do Post](#)        |
+| Como usar o Notion   | Jane Smith    | 2024-08-25  | Não     | Guia        | ![Link do Post](#)        |
+| Organizando Eventos  | Carlos Silva  | 2024-09-05  | Sim     | Artigo      | ![Link do Post](#)        |
+
+
+
+| Nome do Evento      | Data        | Localização           | Descrição                | Organizador    |
+|---------------------|-------------|-----------------------|--------------------------|----------------|
+| Meetup Dev's Café   | 2024-09-10  | Online via Zoom       | Encontro da comunidade   | John Doe       |
+| Workshop Next.js    | 2024-09-15  | São Paulo, Brasil     | Workshop de Next.js      | Jane Smith     |
+| Hackathon Devs      | 2024-09-20  | Rio de Janeiro, Brasil| Hackathon para iniciantes| Carlos Silva   |
+
+
+
 1. Clone o repositório:
 
     ```bash
