@@ -2,6 +2,8 @@
 
 Devstie Boilerplate é um projeto de código aberto desenvolvido pela comunidade Dev's Café. Nosso objetivo é fornecer um ponto de partida rápido e acessível para comunidades de desenvolvedores que desejam criar e hospedar seus próprios sites e blogs, mesmo com pouca experiência ou recursos.
 
+A ideia primaria é construir um tamplate mais simples e plano possivel e funcional para cada pessoa poder implementar sua ideia desing.
+
 ## 🚀 Tecnologias Utilizadas
 
 - **Next.js**: Framework de React para desenvolvimento web focado em performance e escalabilidade.
