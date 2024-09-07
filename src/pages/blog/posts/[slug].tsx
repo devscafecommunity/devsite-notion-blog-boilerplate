@@ -17,7 +17,7 @@ import { notionClient } from "@/utils/Posts";
 import RenderPosts from "@/components/blog/RenderPosts";
 
 // Chackra UI
-import { Text, Heading } from "@chakra-ui/react";
+import { Text, Heading, Image } from "@chakra-ui/react";
 
 interface Post {
   id: string;
@@ -81,10 +81,14 @@ export default function PostPage({ post }: { post: Post }) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <Heading as="h1">{post.title}</Heading>
-      <Text>{post.description}</Text>
-      <RenderPosts html={post.content} />
+    <div className="flex flex-col items-center justify-center p-4">
+      <div className="h-40"/>
+      <div className="flex flex-col items-center justify-center p-4">
+        <Image src={post.cover} alt={post.title} />
+        <Heading as="h1">{post.title}</Heading>
+        <Text>{post.description}</Text>
+        <RenderPosts html={post.content} />
+      </div>
     </div>
   );
 }
