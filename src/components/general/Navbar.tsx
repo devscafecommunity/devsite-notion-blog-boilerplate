@@ -4,7 +4,12 @@ import { useRouter } from "next/router";
 import React from "react";
 
 // Icons - Lupe, Home and Star Fa Icons
-import { FaHome, FaSearch, FaStar } from "react-icons/fa";
+import { 
+    FaHome, 
+    FaCalendar,
+    FaStar 
+} from "react-icons/fa";
+import { IoDocumentTextOutline } from "react-icons/io5";
 // Theme icons
 import { 
     FaMoon, 
@@ -13,6 +18,7 @@ import {
 
 // Function for theme change chacra-ui
 import { useColorMode } from "@chakra-ui/react";
+import { Tooltip } from "@chakra-ui/react";
 
 function ThemeSwitch() {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -54,6 +60,7 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 flex justify-center items-center p-4 shadow-md ${theme} m-4 rounded-xl w-1/2 mx-auto bg-opacity-50 backdrop-filter backdrop-blur-lg
+      max-w-2xl
       `}
     >
       <div className="flex items-center gap-4 text-2xl justify-center items-center">
@@ -78,8 +85,8 @@ export default function Navbar() {
           className="cursor-pointer"
         >
             <div className={`flex items-center gap-2 bg-white p-2 rounded-full shadow-md ${theme} ${buttonTheme} p-4`}>
-            <Link href="/search">
-              <FaSearch size={40} className="cursor-pointer text-gray-800" />
+            <Link href="/blog">
+              <IoDocumentTextOutline size={40} className="cursor-pointer text-gray-800" />
             </Link>
           </div>
         </motion.div>
@@ -91,8 +98,8 @@ export default function Navbar() {
           className="cursor-pointer"
         >
           <div className={`flex items-center gap-2 bg-white p-2 rounded-full shadow-md ${theme} ${buttonTheme} p-4`}>
-            <Link href="/favorites">
-              <FaStar size={40} className="cursor-pointer text-gray-800" />
+            <Link href="/calendar">
+              <FaCalendar size={40} className="cursor-pointer text-gray-800" />
             </Link>
           </div>
         </motion.div>

@@ -15,6 +15,7 @@ export interface SimplifiedPage {
   title: string;
   description: string;
   cover: string;
+  slug?: string;
   tags: string[];
   created_time: string;
   last_edited_time: string;
@@ -88,6 +89,7 @@ export const getPostDataSimplifiedBySlug = async (slug: string) => {
         title: properties.Title.title[0].plain_text,
         description: properties.Description.rich_text[0].plain_text,
         cover,
+        slug: properties.slug.rich_text[0].plain_text,
         tags: properties.Tags.multi_select.map((tag: any) => tag.name),
         created_time: page.created_time,
         last_edited_time: page.last_edited_time,
@@ -126,6 +128,7 @@ export const getPostDataSimplified = async () => {
           title: properties.Title.title[0].plain_text,
           description: properties.Description.rich_text[0].plain_text,
           cover,
+          slug: properties.slug.rich_text[0].plain_text,
           tags: properties.Tags.multi_select.map((tag: any) => tag.name),
           created_time: page.created_time,
           last_edited_time: page.last_edited_time,

@@ -19,6 +19,9 @@ import RenderPosts from "@/components/blog/RenderPosts";
 // Chackra UI
 import { Text, Heading, Image } from "@chakra-ui/react";
 
+// Cookies
+import { useCookies } from "react-cookie";
+
 interface Post {
   id: string;
   title: string;
@@ -69,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 // Post page component
 export default function PostPage({ post }: { post: Post }) {
   const [loading, setLoading] = useState(true);
+  const [cookies, setCookie] = useCookies(["consent", "saved-posts", "read-posts"]);
 
   useEffect(() => {
     if (post) {
@@ -79,6 +83,32 @@ export default function PostPage({ post }: { post: Post }) {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  function setReaded(postSlug: string) {
+    // If the user has given consent to the cookie and html is not empty set read-posts cookie
+    // If post not readed set read-posts cookie
+    /*
+    [
+      {
+        "post": "post-slug",
+        "read": true
+      }
+      ...
+    ]
+    */
+    if (cookies.consent && postSlug) {
+      const readPosts = cookies["read-posts"] ?? [];
+      if (!readPosts.find((post: any) => post.post === postSlug)) {
+        readPosts.push({
+          post: postSlug,
+          read: true,
+        });
+        setCookie("read-posts", readPosts, { path: "/" });
+      }
+    }
+  }
+
+  setReaded(post.id);
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
