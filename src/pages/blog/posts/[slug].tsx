@@ -11,7 +11,7 @@ import { useRouter } from "next/router"; // Routing
 import { useEffect, useState } from "react"; // React
 
 // Notion client
-import { notionClient } from "@/utils/Posts";
+import { notionClient } from "@/utils/Blog";
 
 // Components
 import RenderPosts from "@/components/blog/RenderPosts";

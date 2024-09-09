@@ -33,13 +33,18 @@ export default function PostCard({
   loading,
 }: {
   post: Post;
-  loading: boolean;
+  loading?: boolean;
 }) {
   const [cookies, setCookie] = useCookies([
     "consent",
     "saved-posts",
     "read-posts",
   ]);
+
+  // if loading is not defined, set it to true places that not use the loading prop will not have a loading skeleton
+  if (loading == undefined || loading == null) {
+    loading = false;
+  }
 
   const toast = useToast();
 
@@ -114,102 +119,64 @@ export default function PostCard({
       transition={{ delay: 0.2 }}
       key={post.id}
     >
-      <Card className="flex flex-row gap-4">
-        <CardHeader>
-          <Skeleton
-            isLoaded={!loading}
-            className="flex flex-row gap-4 rounded-lg"
-          >
+      <Card className="w-full max-w-xl p-4 m-2 ">
+        <CardHeader></CardHeader>
+        <CardBody className="flex flex-row gap-2">
+          {loading ? (
+            <Skeleton height="20px" />
+          ) : (
             <Image
               src={post.cover}
               alt={post.title}
-              width="200px"
-              height="200px"
-              borderRadius="lg"
+              className="rounded-lg h-40 w-40 object-cover"
             />
-          </Skeleton>
-        </CardHeader>
-        <CardBody className="flex flex-col gap-4">
-          <Skeleton
-            isLoaded={!loading}
-            className="flex flex-col gap-4 rounded-lg"
-          >
-            <Heading as="h2">{post.title}</Heading>
-          </Skeleton>
-          <Skeleton
-            isLoaded={!loading}
-            className="flex flex-col gap-4 rounded-lg"
-          >
+          )}
+          <div className="flex flex-col gap-4">
+            <Heading as="h2" size="lg">
+              {post.title}
+            </Heading>
             <Text>{post.description}</Text>
-          </Skeleton>
-          <Skeleton
-            isLoaded={!loading}
-            className="flex flex-col gap-4 rounded-lg"
-          >
-            <Text>
-              {new Date(post.created_time).toLocaleDateString("pt-BR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </Text>
-          </Skeleton>
-          <Skeleton
-            isLoaded={!loading}
-            className="flex flex-col gap-4 rounded-lg"
-          >
-            {/* Max 3 tags */}
+            <Text>{post.content}</Text>
             <div className="flex flex-row gap-4">
-              {post.tags.slice(0, 3).map((tag: string) => (
-                <Tag key={tag} colorScheme="blue">
+              {post.tags.map((tag, index) => (
+                <Tag key={index} size="sm" colorScheme="blue">
                   {tag}
                 </Tag>
               ))}
             </div>
-          </Skeleton>
-          <Divider />
-          <Skeleton
-            isLoaded={!loading}
-            className="flex flex-col gap-4 rounded-lg"
-          >
-            <ButtonGroup className="flex flex-row gap-4 justify-center items-center">
-              <Skeleton isLoaded={!loading}>
-                <Button
-                  colorScheme="blue"
-                  onClick={() =>
-                    (window.location.href = `/blog/posts/${post.slug}`)
-                  }
-                >
-                  <FaBookReader size={30} />
-                </Button>
-              </Skeleton>
-              {postIsSaved(post) ? (
-                <Skeleton isLoaded={!loading}>
-                  <Button colorScheme="red" onClick={() => handleSave(post)}>
-                    <CiBookmarkCheck size={30} />
-                  </Button>
-                </Skeleton>
-              ) : (
-                <Skeleton isLoaded={!loading}>
-                  <Button colorScheme="green" onClick={() => handleSave(post)}>
-                    <CiBookmark size={30} />
-                  </Button>
-                </Skeleton>
-              )}
-
+            <div className="flex flex-row justify-center items-center">
               {postIsReaded(post) ? (
-                <Skeleton isLoaded={!loading}>
-                  <LuBookOpenCheck size={30} />
-                </Skeleton>
+                <LuBookOpenCheck size={20} />
               ) : (
-                <Skeleton isLoaded={!loading}>
-                  <LuBookOpen size={30} />
-                </Skeleton>
+                <LuBookOpen size={20} />
               )}
-            </ButtonGroup>
-          </Skeleton>
+            </div>
+          </div>
         </CardBody>
-        <CardFooter></CardFooter>
+        <Divider />
+        <CardFooter>
+          <ButtonGroup className="flex flex-row gap-4 justify-center items-center">
+            <Button
+              leftIcon={<FaBookReader />}
+              onClick={() =>
+                (document.location.href = `/blog/posts/${post.slug}`)
+              }
+            >
+              Read The Post
+            </Button>
+            <div className="flex flex-row gap-4 justify-center items-center">
+              {postIsSaved(post) ? (
+                <Button onClick={() => handleSave(post)}>
+                  <CiBookmarkCheck size={25} />
+                </Button>
+              ) : (
+                <Button onClick={() => handleSave(post)}>
+                  <CiBookmark size={25} />
+                </Button>
+              )}
+            </div>
+          </ButtonGroup>
+        </CardFooter>
       </Card>
     </motion.div>
   );

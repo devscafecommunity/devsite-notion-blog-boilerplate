@@ -1,4 +1,4 @@
-import { getPostContent, getPostDataSimplifiedBySlug } from "@/utils/Posts";
+import { getPostContent, getPostDataSimplifiedBySlug } from "@/utils/Blog";
 import { NextApiRequest, NextApiResponse } from "next";
 
 // page.test/api/blog/posts/[slug].tsx

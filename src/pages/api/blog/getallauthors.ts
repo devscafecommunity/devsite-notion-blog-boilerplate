@@ -1,4 +1,4 @@
-import { getAuthors } from '../../../utils/Posts';
+import { getAuthors } from '../../../utils/Blog';
 
 import { NextApiRequest, NextApiResponse } from 'next';
 

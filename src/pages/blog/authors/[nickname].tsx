@@ -79,16 +79,12 @@ export function Author( { data }: { data: any } ) {
         return () => clearTimeout(timer);
     }, []);
 
-    console.log(data)
-
     return (
         <div>
         <div className="h-40" />
         {
             data==null ||  data==undefined ? (
-                <div
-                    className="flex flex-col justify-center items-center aling-center"
-                >
+                <div className="flex flex-col justify-center items-center aling-center">
                     <h1>Ops! 😅</h1>
                     <p>We having some trouble to find the author {nickname}, or our services are down.</p>
                 </div>

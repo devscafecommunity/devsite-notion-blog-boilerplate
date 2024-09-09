@@ -141,28 +141,25 @@ export default function AuthorPostList(
     }
   }
 
-  /*
-  fix
-          // {
-        //     // If posts are not recived no render the component
-        //     posts.length === 0 ? (
-        //         <div>
-        //             <Heading>
-        //             No posts found, or being loaded
-        //             </Heading>
-        //         </div>
-        //     ) : (
-        //         <div>
-        //         posts.map((post, index) => (
-        //           <PostCard key={index} post={post} loading={true} />
-        //         ))
-        //       </div>
-        //     )
-        // }
-  */
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-
+      {
+        posts.length === 0 ? (
+          <div>
+            <Heading>
+              No posts found, or being loaded
+            </Heading>
+          </div>
+        ) : (
+          <div>
+            {
+              posts.map((post, index) => (
+                <PostCard key={index} post={post} />
+              ))
+            }
+          </div>
+        )
+      }
     </div>
   );
 }
