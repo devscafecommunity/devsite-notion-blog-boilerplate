@@ -85,17 +85,6 @@ export default function PostPage({ post }: { post: Post }) {
   }
 
   function setReaded(postSlug: string) {
-    // If the user has given consent to the cookie and html is not empty set read-posts cookie
-    // If post not readed set read-posts cookie
-    /*
-    [
-      {
-        "post": "post-slug",
-        "read": true
-      }
-      ...
-    ]
-    */
     if (cookies.consent && postSlug) {
       const readPosts = cookies["read-posts"] ?? [];
       if (!readPosts.find((post: any) => post.post === postSlug)) {
