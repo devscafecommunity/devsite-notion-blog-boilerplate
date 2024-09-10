@@ -50,8 +50,8 @@ import { motion } from "framer-motion";
 import Fuse from "fuse.js";
 import { remove as removeDiacritics } from "diacritics";
 
-// Icons
-
+// Components
+import EventCard from "@/components/events/EventCard";
 
 export default function ListEvents() {
     const [events, setEvents] = useState([]);
@@ -121,6 +121,7 @@ export default function ListEvents() {
         return eventDate > currentDate;
     }
 
+
     // Percentage to time left to the event
     // 
     /*
@@ -148,6 +149,27 @@ export default function ListEvents() {
         return diffDays;
     }
 
+    function liveTextCoundown(event: any) {
+        // Display an countdown to the event on the format: dd:hh:mm:ss
+        const eventDate = new Date(event.date) as any;
+        const currentDate = new Date() as any;
+        
+        const diffTime = Math.abs(eventDate - currentDate);
+
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+
+        const diffMinutes = Math.ceil(diffTime / (1000 * 60));
+
+        const diffSeconds = Math.ceil(diffTime / (1000));
+
+        return `${diffDays} days ${diffHours} hours ${diffMinutes} minutes ${diffSeconds} seconds`;
+    }
+
+
+
+
 
     return (
         <motion.div
@@ -167,64 +189,7 @@ export default function ListEvents() {
                 <Text>Loading...</Text>
             ) : (
                 filteredEvents.map((event: any) => (
-                    <motion.div
-                        key={event.id}
-                        whileHover={{ scale: 1.00 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <div className="flex flex-col gap-4 p-28">
-                            <Image
-                                src="https://via.placeholder.com/150"
-                                alt={event.name}
-                                width={150}
-                                height={150}
-                            />
-                            <Heading>{event.name}</Heading>
-                            <Text>{event.description}</Text>
-                            <Text>{event.date}</Text>
-                            <Text>{event.location}</Text>
-                            <div className="flex flex-row gap-4">
-                                {/* Event status */}
-                                {eventIsInFuture(event) && (
-                                    <Tag colorScheme="green">Upcoming</Tag>
-                                )}
-                                {eventIsInPast(event) && (
-                                    <Tag colorScheme="red">Past</Tag>
-                                )}
-                                {eventIsInProgress(event) && (
-                                    <Tag colorScheme="blue">In progress</Tag>
-                                )}
-                                {eventIsExpired(event) && (
-                                    <Tag colorScheme="gray">Expired</Tag>
-                                )}
-                            </div>
-                            <div className="flex flex-row gap-4 justify-center items-center w-full">
-                                {/* Progress to the event */}
-                                <Text>{daysToEvent(event)} Days left </Text>
-                                <Progress value={eventPercentage(event)} 
-                                hasStripe w={20}
-                                className="bg-blue-500 w-2/3"
-                                />
-                            </div>
-                            <div className="flex flex-row gap-4">
-                                {event.tags.map((tag: string, index: number) => (
-                                    <Tag key={index} size="sm" colorScheme="blue">
-                                        {tag}
-                                    </Tag>
-                                ))}
-                            </div>
-                            <ButtonGroup>
-                                <Button
-                                    as="a"
-                                    href={event.url}
-                                    target="_blank"
-                                    colorScheme="blue"
-                                >
-                                    More info
-                                </Button>
-                            </ButtonGroup>
-                        </div>
-                    </motion.div>
+                    <EventCard event={event} key={event.id} />
                 ))
             )}
         </motion.div>
