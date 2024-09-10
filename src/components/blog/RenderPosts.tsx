@@ -12,19 +12,6 @@ export default function RenderPosts({ html }: { html: string }) {
 
   let bgColor = colorMode === "light" ? "prose-proselight" : "prose-prosedark";
 
-  // If the user has given consent to the cookie and html is not empty set read-posts cookie 
-  // assuming that the user has read the post.
-  /*
-  [
-    {
-      "post": "post-slug",
-      "read": true
-    }
-    ...
-  ]
-  */
-
-
   return (
     <div className="flex flex-col items-center justify-center gap-6 pt-8">
       <div

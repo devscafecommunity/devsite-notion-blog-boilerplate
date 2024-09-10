@@ -15,6 +15,7 @@ import { notionClient } from "@/utils/Blog";
 
 // Components
 import RenderPosts from "@/components/blog/RenderPosts";
+import PostHeader from "@/components/blog/PostHeader";
 
 // Chackra UI
 import { Text, Heading, Image } from "@chakra-ui/react";
@@ -22,15 +23,28 @@ import { Text, Heading, Image } from "@chakra-ui/react";
 // Cookies
 import { useCookies } from "react-cookie";
 
-interface Post {
+// Types
+import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+
+
+export interface SimplifiedPost {
   id: string;
   title: string;
   description: string;
   cover: string;
+  slug?: string;
   tags: string[];
   created_time: string;
   last_edited_time: string;
-  content: string;
+  author: {
+    id: string;
+    name: string;
+    avatar: string;
+    banner: string;
+    email: string;
+  };
+  content: BlockObjectResponse[];
+  contentstring: string;
 }
 
 // Static props
@@ -59,18 +73,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const html = await notionRenderer.render(...post.content);
 
+
   return {
     props: {
       post: {
         ...post,
-        content: html,
+        contentstring: html,
       },
     },
   };
 }
 
 // Post page component
-export default function PostPage({ post }: { post: Post }) {
+export default function PostPage({ post }: { post: SimplifiedPost }) {
   const [loading, setLoading] = useState(true);
   const [cookies, setCookie] = useCookies(["consent", "saved-posts", "read-posts"]);
 
@@ -103,10 +118,8 @@ export default function PostPage({ post }: { post: Post }) {
     <div className="flex flex-col items-center justify-center p-4">
       <div className="h-40"/>
       <div className="flex flex-col items-center justify-center p-4">
-        <Image src={post.cover} alt={post.title} />
-        <Heading as="h1">{post.title}</Heading>
-        <Text>{post.description}</Text>
-        <RenderPosts html={post.content} />
+        <PostHeader post={post} />
+        <RenderPosts html={post.contentstring} />
       </div>
     </div>
   );

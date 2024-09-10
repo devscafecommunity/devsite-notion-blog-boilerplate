@@ -165,7 +165,7 @@ export default function AuthorPostHeader({ data }: { data: any }) {
             <ButtonGroup>
               <Button
                 as="a"
-                href={data.social.github}
+                href={data.social.github ?? "#"}
                 target="_blank"
                 leftIcon={<FaGithub />}
               >
@@ -173,7 +173,7 @@ export default function AuthorPostHeader({ data }: { data: any }) {
               </Button>
               <Button
                 as="a"
-                href={data.social.instagram}
+                href={data.social.instagram ?? "#"}
                 target="_blank"
                 leftIcon={<FaInstagram />}
               >
@@ -181,7 +181,7 @@ export default function AuthorPostHeader({ data }: { data: any }) {
               </Button>
               <Button
                 as="a"
-                href={data.social.website}
+                href={data.social.website ?? "#"}
                 target="_blank"
                 leftIcon={<FaGlobe />}
               >
@@ -189,7 +189,7 @@ export default function AuthorPostHeader({ data }: { data: any }) {
               </Button>
               <Button
                 as="a"
-                href={data.social.linkedin}
+                href={data.social.linkedin ?? "#"}
                 target="_blank"
                 leftIcon={<FaLinkedin />}
               >
@@ -197,7 +197,7 @@ export default function AuthorPostHeader({ data }: { data: any }) {
               </Button>
               <Button
                 as="a"
-                href={data.social.twitter}
+                href={data.social.twitter ?? "#"}
                 target="_blank"
                 leftIcon={<FaTwitter />}
               >

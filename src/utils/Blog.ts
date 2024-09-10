@@ -14,7 +14,7 @@ export const notionClient = new Client({
 
 /*
 */
-export interface SimplifiedPage {
+export interface SimplifiedPost {
   id: string;
   title: string;
   description: string;
@@ -31,6 +31,7 @@ export interface SimplifiedPage {
     email: string;
   };
   content: BlockObjectResponse[];
+  contentstring: string;
 }
 
 //
@@ -101,14 +102,14 @@ export const getPostDataSimplifiedBySlug = async (slug: string) => {
     database_id: process.env.POSTS_DATABASE_ID!,
   }) as Promise<any>;
 
-  const page = new Promise<SimplifiedPage>((resolve, reject) => {
+  const page = new Promise<SimplifiedPost>((resolve, reject) => {
     data.then((res) => {
       const page = res.results[0] as PageObjectResponse;
       const properties = page.properties as any;
 
       const cover = properties.Cover.files[0].external.url || properties.Cover.files[0].file.url;
 
-      const simplifiedPage: SimplifiedPage = {
+      const simplifiedPost: SimplifiedPost = {
         id: page.id,
         title: properties.Title.title[0].plain_text,
         description: properties.Description.rich_text[0].plain_text,
@@ -120,14 +121,15 @@ export const getPostDataSimplifiedBySlug = async (slug: string) => {
         author: {
           id: properties.Author.people[0].id,
           name: properties.Author.people[0].name,
-          avatar: properties.Avatar.files[0].external.url || properties.Avatar.files[0].file.url,
-          banner: properties.Banner.files[0].external.url || properties.Banner.files[0].file.url,
+          avatar: "",
+          banner: "",
           email: properties.Author.people[0].person.email,
         },
         content: [],
+        contentstring: "",
       };
 
-      resolve(simplifiedPage);
+      resolve(simplifiedPost);
     });
   });
 
@@ -145,16 +147,16 @@ export const getPostDataSimplified = async () => {
     database_id: process.env.POSTS_DATABASE_ID!,
   }) as Promise<any>;
 
-  const simplifiedPage = new Promise<SimplifiedPage[]>((resolve, reject) => {
+  const simplifiedPost = new Promise<SimplifiedPost[]>((resolve, reject) => {
     data.then((res) => {
       const pages = res.results as PageObjectResponse[];
 
-      const simplifiedPages = pages.map((page) => {
+      const simplifiedPosts = pages.map((page) => {
         const properties = page.properties as any;
 
         const cover = properties.Cover.files[0].external.url || properties.Cover.files[0].file.url;
 
-        const simplifiedPage: SimplifiedPage = {
+        const simplifiedPost: SimplifiedPost = {
           id: page.id,
           title: properties.Title.title[0].plain_text,
           description: properties.Description.rich_text[0].plain_text,
@@ -171,16 +173,17 @@ export const getPostDataSimplified = async () => {
             email: properties.Author.people[0].person.email,
           },
           content: [],
+          contentstring: "",
         };
 
-        return simplifiedPage;
+        return simplifiedPost;
       });
 
-      resolve(simplifiedPages);
+      resolve(simplifiedPosts);
     });
   });
 
-  return simplifiedPage;
+  return simplifiedPost;
 };
 
 interface Author {
@@ -268,7 +271,7 @@ export const getAuthorPosts = async (nickname: string) => {
   return posts.results.map((page: any) => {
     const properties = page.properties as any;
     const cover = properties.Cover.files[0].external.url || properties.Cover.files[0].file.url;
-    const simplifiedPage: SimplifiedPage = {
+    const simplifiedPost: SimplifiedPost = {
       id: page.id,
       title: properties.Title.title[0].plain_text,
       description: properties.Description.rich_text[0].plain_text,
@@ -285,8 +288,9 @@ export const getAuthorPosts = async (nickname: string) => {
         email: properties.Author.people[0].person.email,
       },
       content: [],
+      contentstring: "",
     };
-    return simplifiedPage;
+    return simplifiedPost;
   });
 }
 
