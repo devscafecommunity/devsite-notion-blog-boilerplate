@@ -46,8 +46,11 @@ export default function PostCard({
   }
 
   const toast = useToast();
+  
+  // 50:29  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+  // function handleSave(post: any) {
 
-  function handleSave(post: any) {
+  function handleSave(post: Post) {
     if (cookies.consent === false) {
       toast({
         title: "Consent required",
@@ -58,8 +61,8 @@ export default function PostCard({
       });
       return;
     } else if (cookies.consent === true) {
-      let savedPosts = cookies["saved-posts"] || [];
-      let index = savedPosts.findIndex((p: any) => p.id === post.id);
+      const savedPosts = cookies["saved-posts"] || [];
+      const index = savedPosts.findIndex((p: any) => p.id === post.id);
       if (index === -1) {
         savedPosts.push(post);
         toast({
@@ -92,8 +95,8 @@ export default function PostCard({
   }
 
   function postIsSaved(post: any) {
-    let savedPosts = cookies["saved-posts"] || [];
-    let index = savedPosts.findIndex((p: any) => p.id === post.id);
+    const savedPosts = cookies["saved-posts"] || [];
+    const index = savedPosts.findIndex((p: any) => p.id === post.id);
     if (index === -1) {
       return false;
     } else {
@@ -102,8 +105,8 @@ export default function PostCard({
   }
 
   function postIsReaded(post: any) {
-    let readPosts = cookies["read-posts"] || [];
-    let index = readPosts.findIndex((p: any) => p.post === post.id);
+    const readPosts = cookies["read-posts"] || [];
+    const index = readPosts.findIndex((p: any) => p.post === post.id);
     if (index === -1) {
       return false;
     } else {

@@ -89,10 +89,10 @@ export default function AuthorPostHeader({ data }: { data: any }) {
   function getPostSpacing(posts: any) {
     let total = 0;
     for (let i = 0; i < posts.length - 1; i++) {
-      let date1 = new Date(posts[i].created_time);
-      let date2 = new Date(posts[i + 1].created_time);
-      let diffTime = Math.abs(date2.getTime() - date1.getTime());
-      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const date1 = new Date(posts[i].created_time);
+      const date2 = new Date(posts[i + 1].created_time);
+      const diffTime = Math.abs(date2.getTime() - date1.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       total += diffDays;
     }
     return Math.ceil(total / posts.length);

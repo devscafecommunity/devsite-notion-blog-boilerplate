@@ -96,8 +96,8 @@ export default function PostPage({ post }: { post: SimplifiedPost }) {
 
   function setReaded(postSlug: string) {
     if (cookies.consent && postSlug) {
-      const readPosts = cookies["read-posts"] ?? [];
-      if (!readPosts.find((post: any) => post.post === postSlug)) {
+      const readPosts: { post: string; read: boolean }[] = cookies["read-posts"] ?? [];
+      if (!readPosts.find((post) => post.post === postSlug)) {
         readPosts.push({
           post: postSlug,
           read: true,

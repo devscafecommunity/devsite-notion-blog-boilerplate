@@ -27,9 +27,6 @@ import { useCookies } from "react-cookie";
 // PostCard component
 import PostCard from "./PostCard";
 
-// Normalize search list
-import Fuse from "fuse.js";
-
 export interface Post {
   id: string;
   title: string;
@@ -53,8 +50,6 @@ export default function SavedPostsList() {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [savedPosts, setSavedPosts] = useState<Post[]>([]);
 
   const toast = useToast();
   useEffect(() => {
@@ -121,7 +116,7 @@ export default function SavedPostsList() {
           setLoading(false);
         }
       });
-  }, []);
+  });
 
   function handleSave(post: any) {
     if (cookies.consent === false) {
@@ -134,8 +129,8 @@ export default function SavedPostsList() {
       });
       return;
     } else if (cookies.consent === true) {
-      let savedPosts = cookies["saved-posts"] || [];
-      let index = savedPosts.findIndex((p: any) => p.id === post.id);
+      const savedPosts = cookies["saved-posts"] || [];
+      const index = savedPosts.findIndex((p: any) => p.id === post.id);
       if (index === -1) {
         savedPosts.push(post);
         toast({
@@ -168,8 +163,8 @@ export default function SavedPostsList() {
   }
 
   function postIsSaved(post: any) {
-    let savedPosts = cookies["saved-posts"] || [];
-    let index = savedPosts.findIndex((p: any) => p.id === post.id);
+    const savedPosts = cookies["saved-posts"] || [];
+    const index = savedPosts.findIndex((p: any) => p.id === post.id);
     if (index === -1) {
       return false;
     } else {
@@ -177,27 +172,6 @@ export default function SavedPostsList() {
     }
   }
 
-  function postIsReaded(post: any) {
-    let readPosts = cookies["read-posts"] || [];
-    let index = readPosts.findIndex((p: any) => p.post === post.id);
-    if (index === -1) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  // Normalize search list if not imput just return the posts
-  const fuse = new Fuse(posts, {
-    keys: ["title", "description", "tags"],
-    includeScore: true,
-    includeMatches: true,
-    minMatchCharLength: 0,
-    ignoreLocation: true,
-    threshold: 0.3,
-    useExtendedSearch: true,
-    ignoreFieldNorm: true,
-  });
 
   // Filter posts that postIsSaved is true
   const savedPostsraw = posts.filter((post) => postIsSaved(post));

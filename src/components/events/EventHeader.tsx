@@ -14,7 +14,7 @@ import {
 import { motion } from "framer-motion";
 
 // React
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function EventHeader() {
   const [eventCount, setEventCount] = useState(0);
@@ -93,7 +93,6 @@ export default function EventHeader() {
       donePercentage,
       notStartedPercentage
     );
-    const statusMajority = ""; // The status with the majority of percentage
 
     if (major === progressPercentage) {
       return {

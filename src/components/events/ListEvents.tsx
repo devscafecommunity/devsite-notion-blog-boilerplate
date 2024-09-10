@@ -32,7 +32,6 @@
 // Res: {"count":1}
 
 
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -48,7 +47,6 @@ import { Progress } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 import Fuse from "fuse.js";
-import { remove as removeDiacritics } from "diacritics";
 
 // Icons
 import { FaMapPin, FaCalendar } from "react-icons/fa";
@@ -59,8 +57,6 @@ export default function ListEvents() {
     const [search, setSearch] = useState("");
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [loading, setLoading] = useState(true);
-    const router = useRouter();
-    const toast = useToast();
 
     useEffect(() => {
         fetch("/api/events/getevents")
@@ -110,25 +106,13 @@ export default function ListEvents() {
         return eventDate < currentDate;
     }
 
-    function eventIsToday(event: any) {
-        const eventDate = new Date(event.date);
-        const currentDate = new Date();
-        return eventDate === currentDate;
-    }
-
-    function eventIncoming(event: any) {
-        const eventDate = new Date(event.date);
-        const currentDate = new Date();
-        return eventDate > currentDate;
-    }
-
     function eventPercentage(event: any) {
         const eventDate = new Date(event.date) as any;
         const currentDate = new Date() as any;
         const diffTime = Math.abs(eventDate - currentDate);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        let percentage = 100 - diffDays;
-        let value = 100 - percentage;
+        const percentage = 100 - diffDays;
+        const value = 100 - percentage;
         return value;
     }
     

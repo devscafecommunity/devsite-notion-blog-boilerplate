@@ -5,11 +5,7 @@ import { Divider } from "@chakra-ui/react";
 // framer motion
 import { motion } from "framer-motion";
 
-/*
-<Heading as="h1">{post.title}</Heading>
-      <Text>{post.description}</Text>
-      
-*/
+
 export default function PostHeader({ post }: { post: any }) {
   function getDateDifference(date: string) {
     const currentDate = new Date();
@@ -22,12 +18,12 @@ export default function PostHeader({ post }: { post: any }) {
 
   function formatDate(date: string) {
     // 7 days ago / 7 sept 2021
-    let formattedDate = new Date(date).toLocaleDateString("en-US", {
+    const formattedDate = new Date(date).toLocaleDateString("en-US", {
       day: "numeric",
       month: "long",
       year: "numeric",
     });
-    let daysDifference = getDateDifference(date);
+    const daysDifference = getDateDifference(date);
     if (daysDifference < 7) {
       return `${daysDifference} days ago`;
     } else {

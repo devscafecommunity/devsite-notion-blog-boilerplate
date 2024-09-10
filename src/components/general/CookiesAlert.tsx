@@ -8,7 +8,6 @@ import {
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
-    DrawerCloseButton,
   } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react'
 
@@ -22,17 +21,14 @@ import { useState, useEffect } from 'react'
 export default function CookiesAlert() {
     const [cookies, setCookie] = useCookies([ 'consent' ])
     const [isOpen, setIsOpen] = useState(false)
-    const [isConsent, setIsConsent] = useState(false)
 
     // Set an consent cookie if the user agrees
     function handleAgree() {
         setCookie('consent', 'true', { path: '/' })
-        setIsConsent(true)
         setIsOpen(false)
     }
     function handleDisagree() {
         setCookie('consent', 'false', { path: '/' })
-        setIsConsent(false)
         setIsOpen(false)
     }
 
@@ -41,7 +37,7 @@ export default function CookiesAlert() {
         if (!cookies.consent) {
             setIsOpen(true)
         }
-    }, [])
+    })
 
     // Try to get the consent cookie if it not exists pop up the alert dialog
     const consent = cookies.consent
@@ -62,7 +58,7 @@ export default function CookiesAlert() {
                     <DrawerContent>
                         <DrawerHeader>Cookie Consent</DrawerHeader>
                         <DrawerBody>
-                            We use local cookies to enhance your experience on our website. By clicking "Agree" you consent to the use of cookies. <br />
+                            We use local cookies to enhance your experience on our website. By clicking &quot;Agree&quot; you consent to the use of cookies. <br />
                             for acessing our website, you do not need to agree to the use of cookies. <br />
                             but some features will not be available, such as saving your preferences. <br />
                             We do not collect any personal data, the cookies are used locally on your device.

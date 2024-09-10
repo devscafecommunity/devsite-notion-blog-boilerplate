@@ -2,9 +2,9 @@ import React from "react";
 import { useColorMode } from "@chakra-ui/react";
 
 export default function RenderPosts({ html }: { html: string }) {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
-  let bgColor = colorMode === "light" ? "prose-proselight" : "prose-prosedark";
+  const bgColor = colorMode === "light" ? "prose-proselight" : "prose-prosedark";
 
   return (
     <div className="flex flex-col items-center justify-center gap-6 pt-8">

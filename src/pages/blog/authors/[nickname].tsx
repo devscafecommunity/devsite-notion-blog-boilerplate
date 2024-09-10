@@ -3,7 +3,6 @@ import { GetServerSideProps } from "next"; // Next server side props
 import { useRouter } from "next/router"; // Routing
 import { useEffect } from "react"; // React
 
-import AuthorPostList from "@/components/blog/AuthorPostList"; // Author post list component
 import AuthorPostHeader from "@/components/blog/AuthorHeader";
 
 // Chackra components
@@ -75,7 +74,7 @@ export function Author( { data }: { data: unknown } ) {
             }
         }, 5000);
         return () => clearTimeout(timer);
-    }, []);
+    });
 
     return (
         <div>
