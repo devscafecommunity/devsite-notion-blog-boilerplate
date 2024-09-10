@@ -7,13 +7,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const author = await getAuthorDataSimplifyedByNickname(nickname as string);
     const posts = await getAuthorPosts(nickname as string);
 
-    let data = {
+    const data = {
         ...author,
         posts: posts
     }
 
     res.status(200).json(data);
-  } catch (e: any) {
-    res.status(500).json({ error: e.message });
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      res.status(500).json({ error: e.message });
+    } else {
+      res.status(500).json({ error: "An unexpected error occurred" });
+    }
   }
 };

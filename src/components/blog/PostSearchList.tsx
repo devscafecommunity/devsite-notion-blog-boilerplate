@@ -17,24 +17,11 @@
 */
 
 // Chakra
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
-import { Image } from "@chakra-ui/react";
-import { Text, Heading, Divider } from "@chakra-ui/react";
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { Tag, Input } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 
-// Motion
-import { motion } from "framer-motion";
-
-// React
-import { use, useEffect, useState } from "react";
-
-// Icons
-import { CiBookmark, CiBookmarkCheck } from "react-icons/ci";
-import { LuBookOpen, LuBookOpenCheck } from "react-icons/lu";
-import { FaBookReader } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 // Import cookie
 import { useCookies } from "react-cookie";
@@ -44,7 +31,6 @@ import PostCard from "./PostCard";
 
 // Normalize search list
 import Fuse from "fuse.js";
-import { remove as removeDiacritics } from "diacritics"; // You can use a package like 'diacritics'
 
 export interface Post {
   id: string;

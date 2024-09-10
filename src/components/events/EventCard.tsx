@@ -1,13 +1,10 @@
 import { Text, Heading, Image } from "@chakra-ui/react";
-import { useToast } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { Tag, Input } from "@chakra-ui/react";
+import { Tag } from "@chakra-ui/react";
 import { Progress } from "@chakra-ui/react";
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Fuse from "fuse.js";
-import { remove as removeDiacritics } from "diacritics";
 
 // import {
 //     Pin

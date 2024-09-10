@@ -1,13 +1,12 @@
 import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { Text, Heading, Divider } from "@chakra-ui/react";
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Tag } from "@chakra-ui/react";
 
 import { motion } from "framer-motion";
-import { use, useEffect, useState } from "react";
 
 import { CiBookmark, CiBookmarkCheck } from "react-icons/ci";
 import { LuBookOpen, LuBookOpenCheck } from "react-icons/lu";

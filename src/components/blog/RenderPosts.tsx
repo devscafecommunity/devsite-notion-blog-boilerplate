@@ -1,13 +1,7 @@
 import React from "react";
 import { useColorMode } from "@chakra-ui/react";
 
-// Import cookie
-import { useCookies } from "react-cookie";
-
-
 export default function RenderPosts({ html }: { html: string }) {
-  const [cookies, setCookie] = useCookies(["consent", "saved-posts"]);
-
   const { colorMode, toggleColorMode } = useColorMode();
 
   let bgColor = colorMode === "light" ? "prose-proselight" : "prose-prosedark";

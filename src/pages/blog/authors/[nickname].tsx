@@ -1,14 +1,13 @@
 // React next
 import { GetServerSideProps } from "next"; // Next server side props
 import { useRouter } from "next/router"; // Routing
-import { useEffect, useState } from "react"; // React
+import { useEffect } from "react"; // React
 
 import AuthorPostList from "@/components/blog/AuthorPostList"; // Author post list component
 import AuthorPostHeader from "@/components/blog/AuthorHeader";
 
 // Chackra components
 import { useToast } from "@chakra-ui/react";
-import { ClassNames } from "@emotion/react";
 
 // make an request for: http://localhost:3000/api/blog/author/[nickname]
 /*
@@ -58,11 +57,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 // Recive data from the server 
-export function Author( { data }: { data: any } ) {
+export function Author( { data }: { data: unknown } ) {
     const router = useRouter();
     const toast = useToast();
-    const { nickname } = router.query;
-    const [loading, setLoading] = useState(true);
+    const { nickname } = router.query; 
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -91,7 +89,7 @@ export function Author( { data }: { data: any } ) {
             ) : (
                 <div>
                     <AuthorPostHeader data={data} />
-                    <AuthorPostList posts={data.posts} />
+                    {/* <AuthorPostList posts={data.posts} /> */}
                 </div>
             )
         }

@@ -11,8 +11,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     res.status(200).json(posts);
-  } catch (e: any) {
-    res.status(500).json({ error: e.message });
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      res.status(500).json({ error: e.message });
+    } else {
+      res.status(500).json({ error: "An unexpected error occurred" });
+    }
   }
 };
 
