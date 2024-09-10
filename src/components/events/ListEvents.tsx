@@ -38,7 +38,7 @@ import { useEffect, useState } from "react";
 
 // Chakra ui
 
-import { Text, Heading, Image } from "@chakra-ui/react";
+import { Text, Heading, Image, Divider } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Tag, Input } from "@chakra-ui/react";
@@ -51,6 +51,7 @@ import Fuse from "fuse.js";
 import { remove as removeDiacritics } from "diacritics";
 
 // Icons
+import { FaMapPin, FaCalendar } from "react-icons/fa";
 
 
 export default function ListEvents() {
@@ -121,22 +122,14 @@ export default function ListEvents() {
         return eventDate > currentDate;
     }
 
-    // Percentage to time left to the event
-    // 
-    /*
-    if today is 2024-09-09 and the event is 2024-09-10 the percentage is 50% - 1 day left
-    if today is 2024-09-09 and the event is 2024-09-09 the percentage is 100% - 0 days left
-    if today is 2024-09-09 and the event is 2024-09-08 the percentage is 100% - -1 days left
-    if today is 2024-09-09 and the event is 2024-09-12 the percentage is 25% - 3 days left
-
-    Calculate the percentage of days left to the event
-    */
     function eventPercentage(event: any) {
         const eventDate = new Date(event.date) as any;
         const currentDate = new Date() as any;
         const diffTime = Math.abs(eventDate - currentDate);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return 100 - diffDays;
+        let percentage = 100 - diffDays;
+        let value = 100 - percentage;
+        return value;
     }
     
 
@@ -147,7 +140,6 @@ export default function ListEvents() {
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         return diffDays;
     }
-
 
     return (
         <motion.div
@@ -173,16 +165,42 @@ export default function ListEvents() {
                         whileTap={{ scale: 0.95 }}
                     >
                         <div className="flex flex-col gap-4 p-28">
-                            <Image
-                                src="https://via.placeholder.com/150"
-                                alt={event.name}
-                                width={150}
-                                height={150}
-                            />
+                            <div className="flex flex-row justify-center items-center w-full">
+                                <Image
+                                    src={event.banner}
+                                    alt={event.name}
+                                    width={900}
+                                    height={250}
+                                />
+                            </div>
                             <Heading>{event.name}</Heading>
                             <Text>{event.description}</Text>
-                            <Text>{event.date}</Text>
-                            <Text>{event.location}</Text>
+                            <motion.div
+                                initial={{ x: -1000 }}
+                                animate={{ x: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <Text className="flex flex-row justify-left items-center gap-2">
+                                    <FaCalendar size={20}/>
+                                    {
+                                        new Date(event.date).toLocaleDateString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        })
+                                    }
+                                </Text>
+                            </motion.div>
+                            <motion.div
+                                initial={{ x: -1000 }}
+                                animate={{ x: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <Text className="flex flex-row justify-left items-center gap-2">
+                                    <FaMapPin size={20}/>
+                                    {event.location}
+                                </Text>
+                            </motion.div>
                             <div className="flex flex-row gap-4">
                                 {/* Event status */}
                                 {eventIsInFuture(event) && (
@@ -198,6 +216,13 @@ export default function ListEvents() {
                                     <Tag colorScheme="gray">Expired</Tag>
                                 )}
                             </div>
+                            <div className="flex flex-row gap-4">
+                                {event.tags.map((tag: string, index: number) => (
+                                    <Tag key={index} size="sm" colorScheme="blue">
+                                        {tag}
+                                    </Tag>
+                                ))}
+                            </div>
                             <div className="flex flex-row gap-4 justify-center items-center w-full">
                                 {/* Progress to the event */}
                                 <Text>{daysToEvent(event)} Days left </Text>
@@ -206,13 +231,7 @@ export default function ListEvents() {
                                 className="bg-blue-500 w-2/3"
                                 />
                             </div>
-                            <div className="flex flex-row gap-4">
-                                {event.tags.map((tag: string, index: number) => (
-                                    <Tag key={index} size="sm" colorScheme="blue">
-                                        {tag}
-                                    </Tag>
-                                ))}
-                            </div>
+                            <Divider />
                             <ButtonGroup>
                                 <Button
                                     as="a"

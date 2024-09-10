@@ -1,4 +1,4 @@
-import { getEventsSimplifiedByDateRecent } from "../../../utils/Events";
+import { getEventsSimplifiedByDateRecent, getEvents } from "../../../utils/Events";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

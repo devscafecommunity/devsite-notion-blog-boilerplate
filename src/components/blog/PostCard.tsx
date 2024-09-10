@@ -119,7 +119,7 @@ export default function PostCard({
       transition={{ delay: 0.2 }}
       key={post.id}
     >
-      <Card className="w-full max-w-xl p-4 m-2 ">
+      <Card className="w-full max-w-2/3 p-4 m-2 ">
         <CardHeader></CardHeader>
         <CardBody className="flex flex-row gap-2">
           {loading ? (
@@ -144,13 +144,6 @@ export default function PostCard({
                 </Tag>
               ))}
             </div>
-            <div className="flex flex-row justify-center items-center">
-              {postIsReaded(post) ? (
-                <LuBookOpenCheck size={20} />
-              ) : (
-                <LuBookOpen size={20} />
-              )}
-            </div>
           </div>
         </CardBody>
         <Divider />
@@ -173,6 +166,13 @@ export default function PostCard({
                 <Button onClick={() => handleSave(post)}>
                   <CiBookmark size={25} />
                 </Button>
+              )}
+            </div>
+            <div className="flex flex-row gap-4 justify-center items-center">
+              {postIsReaded(post) ? (
+                <LuBookOpenCheck size={30} />
+              ) : (
+                <LuBookOpen size={30} />
               )}
             </div>
           </ButtonGroup>
