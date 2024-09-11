@@ -6,39 +6,37 @@ import { Progress } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-// import {
-//     Pin
-// } from "react-icons/fa";
+import EventData from "@/utils/interfaces/Events";
 
-export default function EventCard({ event }: { event: any }) {
+export default function EventCard({ event }: { event: EventData }) {
   // Remaining time to the event using on the live countdown
   const [timeRemaining, setTimeRemaining] = useState("");
 
-  function eventIsInFuture(event: any) {
+  function eventIsInFuture(event: EventData) {
     const eventDate = new Date(event.date);
     const currentDate = new Date();
     return eventDate > currentDate;
   }
 
-  function eventIsInPast(event: any) {
+  function eventIsInPast(event: EventData) {
     const eventDate = new Date(event.date);
     const currentDate = new Date();
     return eventDate < currentDate;
   }
 
-  function eventIsInProgress(event: any) {
+  function eventIsInProgress(event: EventData) {
     const eventDate = new Date(event.date);
     const currentDate = new Date();
     return eventDate === currentDate;
   }
 
-  function eventIsExpired(event: any) {
+  function eventIsExpired(event: EventData) {
     const eventDate = new Date(event.date);
     const currentDate = new Date();
     return eventDate < currentDate;
   }
 
-  function eventPercentage(event: any) {
+  function eventPercentage(event: EventData) {
     const createdDate = new Date(event.created_time).getTime();
     const eventDate = new Date(event.date).getTime();
     const currentDate = new Date().getTime();
@@ -58,7 +56,7 @@ export default function EventCard({ event }: { event: any }) {
   
 
     // Countdown timer in milliseconds
-    function countdownTimer(event: any) {
+    function countdownTimer(event: EventData) {
     const eventDate = new Date(event.date).getTime();
     const currentDate = new Date().getTime();
     const diffTime = eventDate - currentDate;
@@ -66,7 +64,7 @@ export default function EventCard({ event }: { event: any }) {
   }
   
   // Format the countdown timer in dd:hh:mm:ss format
-  function formatCountdownTimer(event: any) {
+  function formatCountdownTimer(event: EventData) {
     const diffTime = countdownTimer(event);
   
     const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
@@ -83,7 +81,7 @@ export default function EventCard({ event }: { event: any }) {
         setTimeRemaining(formatCountdownTimer(event));
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  });
 
   return (
     <motion.div

@@ -5,8 +5,10 @@ import { Divider } from "@chakra-ui/react";
 // framer motion
 import { motion } from "framer-motion";
 
+import PostData from "@/utils/interfaces/PostData";
 
-export default function PostHeader({ post }: { post: any }) {
+
+export default function PostHeader({ post }: { post: PostData }) {
   function getDateDifference(date: string) {
     const currentDate = new Date();
     const postDate = new Date(date);

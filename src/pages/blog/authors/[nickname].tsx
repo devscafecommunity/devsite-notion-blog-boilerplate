@@ -4,6 +4,7 @@ import { useRouter } from "next/router"; // Routing
 import { useEffect } from "react"; // React
 
 import AuthorPostHeader from "@/components/blog/AuthorHeader";
+import AuthorPostList from "@/components/blog/AuthorPostList";
 
 // Chackra components
 import { useToast } from "@chakra-ui/react";
@@ -34,6 +35,9 @@ Return:
 ]
 */
 
+import Data from "@/utils/interfaces/Data";
+
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { nickname } = context.params ?? {};
     if (!nickname) {
@@ -56,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 // Recive data from the server 
-export function Author( { data }: { data: unknown } ) {
+export function Author( { data }: { data: Data } ) {
     const router = useRouter();
     const toast = useToast();
     const { nickname } = router.query; 
@@ -88,7 +92,7 @@ export function Author( { data }: { data: unknown } ) {
             ) : (
                 <div>
                     <AuthorPostHeader data={data} />
-                    {/* <AuthorPostList posts={data.posts} /> */}
+                    <AuthorPostList data={data} />
                 </div>
             )
         }

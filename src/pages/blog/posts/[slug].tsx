@@ -19,28 +19,8 @@ import PostHeader from "@/components/blog/PostHeader";
 import { useCookies } from "react-cookie";
 
 // Types
-import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import PostData from "@/utils/interfaces/PostData";
 
-
-export interface SimplifiedPost {
-  id: string;
-  title: string;
-  description: string;
-  cover: string;
-  slug?: string;
-  tags: string[];
-  created_time: string;
-  last_edited_time: string;
-  author: {
-    id: string;
-    name: string;
-    avatar: string;
-    banner: string;
-    email: string;
-  };
-  content: BlockObjectResponse[];
-  contentstring: string;
-}
 
 // Static props
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -79,8 +59,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 }
 
+
 // Post page component
-export default function PostPage({ post }: { post: SimplifiedPost }) {
+export default function PostPage({ post }: { post: PostData }) {
   const [loading, setLoading] = useState(true);
   const [cookies, setCookie] = useCookies(["consent", "saved-posts", "read-posts"]);
 

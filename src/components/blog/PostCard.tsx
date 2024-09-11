@@ -27,11 +27,13 @@ export interface Post {
   content: string;
 }
 
+import PostData from "@/utils/interfaces/PostData";
+
 export default function PostCard({
   post,
   loading,
 }: {
-  post: Post;
+  post: PostData;
   loading?: boolean;
 }) {
   const [cookies, setCookie] = useCookies([
@@ -50,7 +52,8 @@ export default function PostCard({
   // 50:29  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
   // function handleSave(post: any) {
 
-  function handleSave(post: Post) {
+  function handleSave(post: PostData) {
+    console.log(post);
     if (cookies.consent === false) {
       toast({
         title: "Consent required",
@@ -62,7 +65,7 @@ export default function PostCard({
       return;
     } else if (cookies.consent === true) {
       const savedPosts = cookies["saved-posts"] || [];
-      const index = savedPosts.findIndex((p: any) => p.id === post.id);
+      const index = savedPosts.findIndex((p: PostData) => p.id === post.id);
       if (index === -1) {
         savedPosts.push(post);
         toast({
@@ -94,9 +97,9 @@ export default function PostCard({
     }
   }
 
-  function postIsSaved(post: any) {
+  function postIsSaved(post: PostData) {
     const savedPosts = cookies["saved-posts"] || [];
-    const index = savedPosts.findIndex((p: any) => p.id === post.id);
+    const index = savedPosts.findIndex((p: PostData) => p.id === post.id);
     if (index === -1) {
       return false;
     } else {
@@ -104,9 +107,9 @@ export default function PostCard({
     }
   }
 
-  function postIsReaded(post: any) {
+  function postIsReaded(post: PostData) {
     const readPosts = cookies["read-posts"] || [];
-    const index = readPosts.findIndex((p: any) => p.post === post.id);
+    const index = readPosts.findIndex((p: PostData) => p.id === post.id);
     if (index === -1) {
       return false;
     } else {

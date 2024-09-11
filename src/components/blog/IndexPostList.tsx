@@ -7,21 +7,11 @@ import { useEffect, useState } from "react";
 // PostCard component
 import PostCard from "./PostCard";
 
-export interface Post {
-  id: string;
-  title: string;
-  description: string;
-  cover: string;
-  slug?: string;
-  tags: string[];
-  created_time: string;
-  last_edited_time: string;
-  author?: string;
-  content: string;
-}
+// Interfaces
+import PostData from "@/utils/interfaces/PostData";
 
 export default function IndexPostList() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostData[]>([]);
 
   const [loading, setLoading] = useState(true);
 
@@ -94,7 +84,7 @@ export default function IndexPostList() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      {posts.map((post: Post) => (
+      {posts.map((post: PostData) => (
         <PostCard key={post.id} loading={loading} post={post} />
       ))}
     </div>

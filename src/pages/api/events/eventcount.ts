@@ -1,7 +1,7 @@
 import { getTotalEventCount } from "@/utils/Events";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getEventCount = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const count = await getTotalEventCount();
     res.status(200).json({ count });
@@ -13,3 +13,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default getEventCount;

@@ -1,9 +1,7 @@
 import { getPostContent, getPostDataSimplifiedBySlug } from "@/utils/Blog";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// page.test/api/blog/posts/[slug].tsx
-
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getPost = async (req: NextApiRequest, res: NextApiResponse) => {
   const { slug } = req.query;
   try {
     const data = await getPostDataSimplifiedBySlug(slug as string);
@@ -17,3 +15,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default getPost;

@@ -1,7 +1,10 @@
 import { getAuthorPosts, getAuthorDataSimplifyedByNickname } from "@/utils/Blog";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+// export default async (req: NextApiRequest, res: NextApiResponse) => {
+// Replace arrow function: 4:1  Warning: Assign arrow function to a variable before exporting as module default
+
+const getAuthor = async (req: NextApiRequest, res: NextApiResponse) => {
   const { nickname } = req.query;
   try {
     const author = await getAuthorDataSimplifyedByNickname(nickname as string);
@@ -21,3 +24,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default getAuthor;

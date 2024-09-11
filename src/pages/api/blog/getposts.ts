@@ -1,7 +1,9 @@
 import { getPages } from "../../../utils/Blog";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+// export default async (req: NextApiRequest, res: NextApiResponse) => {
+
+const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const posts = await getPages();
     res.status(200).json(posts);
@@ -13,3 +15,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default getPosts;

@@ -1,7 +1,7 @@
 import { getPostDataSimplified } from "../../../utils/Blog";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getRecentPosts = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const raw = await getPostDataSimplified();
     const posts = raw.filter((post) => {
@@ -20,3 +20,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+export default getRecentPosts;

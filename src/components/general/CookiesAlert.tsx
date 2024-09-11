@@ -37,7 +37,7 @@ export default function CookiesAlert() {
         if (!cookies.consent) {
             setIsOpen(true)
         }
-    })
+    }, [cookies, setIsOpen])
 
     // Try to get the consent cookie if it not exists pop up the alert dialog
     const consent = cookies.consent

@@ -1,3 +1,35 @@
+
+
+// Chakra
+import { Image } from "@chakra-ui/react";
+import { Text, Heading } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+
+import {
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatGroup,
+} from "@chakra-ui/react";
+
+// Motion
+import { motion } from "framer-motion";
+
+// React
+import { useEffect, useState } from "react";
+
+// Icons
+import {
+  FaGithub,
+  FaInstagram,
+  FaGlobe,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
+
+
+
 /*
 data: 
 
@@ -39,38 +71,14 @@ data:
 }
 */
 
-// Chakra
-import { Image } from "@chakra-ui/react";
-import { Text, Heading } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import Data from "@/utils/interfaces/Data";
+import PostData from "@/utils/interfaces/PostData";
 
-import {
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatGroup,
-} from "@chakra-ui/react";
-
-// Motion
-import { motion } from "framer-motion";
-
-// React
-import { useEffect, useState } from "react";
-
-// Icons
-import {
-  FaGithub,
-  FaInstagram,
-  FaGlobe,
-  FaLinkedin,
-  FaTwitter,
-} from "react-icons/fa";
-
-export default function AuthorPostHeader({ data }: { data: any }) {
+export default function AuthorPostHeader({ data }: { data: Data }) {
   // Request: http://localhost:3000/api/blog/postcount
   // Res: {"count":1}
-  const [postCount, setPostCount] = useState(0) as any;
+  // const [postCount, setPostCount] = useState(0); // Replace to not use any type
+  const [postCount, setPostCount] = useState<number>(0);
 
   useEffect(() => {
     fetch("/api/blog/postcount")
@@ -86,7 +94,7 @@ export default function AuthorPostHeader({ data }: { data: any }) {
   }
 
   // The averege days between the posts of the author
-  function getPostSpacing(posts: any) {
+  function getPostSpacing(posts: PostData[]) {
     let total = 0;
     for (let i = 0; i < posts.length - 1; i++) {
       const date1 = new Date(posts[i].created_time);

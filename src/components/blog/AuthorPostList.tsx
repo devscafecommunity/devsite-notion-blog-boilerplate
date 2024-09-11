@@ -22,33 +22,33 @@ import { Heading } from "@chakra-ui/react";
 // PostCard component
 import PostCard from "./PostCard";
 
-export interface Post {
-  id: string;
-  title: string;
-  description: string;
-  cover: string;
-  slug?: string;
-  tags: string[];
-  created_time: string;
-  last_edited_time: string;
-  author?: string;
-  content: string;
-}
+import Data from "@/utils/interfaces/Data";
 
-export default function AuthorPostList({ posts }: { posts: Post[] }) {
+export default function AuthorPostList(
+    { data }: { data: Data }
+) {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      {posts.length === 0 ? (
-        <div>
-          <Heading>No posts found, or being loaded</Heading>
-        </div>
-      ) : (
-        <div>
-          {posts.map((post, index) => (
-            <PostCard key={index} post={post} />
-          ))}
-        </div>
-      )}
+      {
+        data.posts.length === 0 ? (
+          <div>
+            <Heading>
+              No posts found, or being loaded
+            </Heading>
+          </div>
+        ) : (
+          <div>
+            {
+              data.posts.map((post) => (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                />
+              ))
+            }
+          </div>
+        )
+      }
     </div>
   );
 }

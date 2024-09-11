@@ -42,11 +42,13 @@ export interface Post {
   content: string;
 }
 
+import PostData from "@/utils/interfaces/PostData";
+
 export default function PostSearchList() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostData[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState<Post[]>([]);
+  const [searchResults, setSearchResults] = useState<PostData[]>([]);
 
   const toast = useToast();
   useEffect(() => {
@@ -137,39 +139,36 @@ export default function PostSearchList() {
 
     const results = fuse.search(search);
     const searchResults = results.map((result) => result.item);
-
     setSearchResults(searchResults);
   }, [search, posts]);
 
-    function handleSearch(e: any) {
-        setSearch(e.target.value);
-    }
-
-
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 w-full">
-        <div className="h-4" />
-        <div className="flex flex-col items-center justify-center gap-4">
-            <Input
-                value={search}
-                onChange={handleSearch}
-                placeholder="Search posts..."
-                className="w-full"
-            />
-        </div>
-        <div className="h-4" />
-        <div className="flex flex-col items-center justify-center gap-4">
-            {searchResults.length > 0 ? (
-                searchResults.map((post: Post) => (
-                    <PostCard key={post.id} loading={loading} post={post} />
-                ))
-            ) : (
-                <div className="flex flex-col items-center justify-center gap-4 p-8">
-                    <Text>No results found</Text>
-                </div>
-            )}
-        </div>
+      <div className="h-4" />
+      <div className="flex flex-col items-center justify-center gap-4">
+        <Input
+          value={search}
+          onChange={handleSearch}
+          placeholder="Search posts..."
+          className="w-full"
+        />
+      </div>
+      <div className="h-4" />
+      <div className="flex flex-col items-center justify-center gap-4">
+        {searchResults.length > 0 ? (
+          searchResults.map((post: PostData) => (
+            <PostCard key={post.id} loading={loading} post={post} />
+          ))
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-4 p-8">
+            <Text>No results found</Text>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

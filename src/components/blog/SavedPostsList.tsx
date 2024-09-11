@@ -25,30 +25,19 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 // PostCard component
-import PostCard from "./PostCard";
+import PostCard  from "./PostCard";
 
-export interface Post {
-  id: string;
-  title: string;
-  description: string;
-  cover: string;
-  slug?: string;
-  tags: string[];
-  created_time: string;
-  last_edited_time: string;
-  author?: string;
-  content: string;
-}
+import PostData from "@/utils/interfaces/PostData";
 
 export default function SavedPostsList() {
   // Cookies
-  const [cookies, setCookie] = useCookies([
+  const [cookies] = useCookies([
     "consent",
     "saved-posts",
     "read-posts",
   ]);
 
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostData[]>([]);
   const [loading, setLoading] = useState(true);
 
   const toast = useToast();
@@ -80,7 +69,7 @@ export default function SavedPostsList() {
       }
     }, 20000);
     return () => clearTimeout(timer);
-  }, [loading]);
+  }, [loading, toast]);
 
   let attempts = 0;
 
@@ -118,53 +107,9 @@ export default function SavedPostsList() {
       });
   });
 
-  function handleSave(post: any) {
-    if (cookies.consent === false) {
-      toast({
-        title: "Consent required",
-        description: "Please enable cookies to save posts",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-      return;
-    } else if (cookies.consent === true) {
-      const savedPosts = cookies["saved-posts"] || [];
-      const index = savedPosts.findIndex((p: any) => p.id === post.id);
-      if (index === -1) {
-        savedPosts.push(post);
-        toast({
-          title: "Post saved",
-          description: "You can view your saved posts in the saved posts page",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-      } else {
-        savedPosts.splice(index, 1);
-        toast({
-          title: "Post removed",
-          description: "You can view your saved posts in the saved posts page",
-          status: "info",
-          duration: 9000,
-          isClosable: true,
-        });
-      }
-      setCookie("saved-posts", savedPosts, { path: "/" });
-    } else {
-      toast({
-        title: "Consent required",
-        description: "Please enable cookies to save posts",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-    }
-  }
-
-  function postIsSaved(post: any) {
+  function postIsSaved(post: PostData) {
     const savedPosts = cookies["saved-posts"] || [];
-    const index = savedPosts.findIndex((p: any) => p.id === post.id);
+    const index = savedPosts.findIndex((p: PostData) => p.id === post.id);
     if (index === -1) {
       return false;
     } else {
@@ -192,7 +137,7 @@ export default function SavedPostsList() {
             <Text>No saved posts</Text>
           </div>
         ) : (
-          savedPostsraw.map((post: Post) => (
+          savedPostsraw.map((post: PostData) => (
             <PostCard key={post.id} loading={loading} post={post} />
           ))
         )}

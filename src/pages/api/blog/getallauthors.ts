@@ -2,7 +2,7 @@ import { getAuthors } from '../../../utils/Blog';
 
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getAllAuthors = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const authors = await getAuthors();
     res.status(200).json(authors);
@@ -14,3 +14,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default getAllAuthors;

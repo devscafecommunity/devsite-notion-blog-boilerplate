@@ -13,6 +13,8 @@ import {
 // Motion
 import { motion } from "framer-motion";
 
+import EventData from "@/utils/interfaces/Events";
+
 // React
 import { useEffect, useState } from "react";
 
@@ -35,23 +37,23 @@ export default function EventHeader() {
   }, []);
 
 
-  function totalStartedEvents(events: any) {
-    return events.filter((event: any) => event.status === "In progress").length;
+  function totalStartedEvents(events: EventData[]) {
+    return events.filter((event: EventData) => event.status === "In progress").length;
   }
 
-  function totalDoneEvents(events: any) {
-    return events.filter((event: any) => event.status === "Done").length;
+  function totalDoneEvents(events: EventData[]) {
+    return events.filter((event: EventData) => event.status === "Done").length;
   }
 
-  function totalNotStartedEvents(events: any) {
-    return events.filter((event: any) => event.status === "Not started").length;
+  function totalNotStartedEvents(events: EventData[]) {
+    return events.filter((event: EventData) => event.status === "Not started").length;
   }
 
-  function totalEvents(events: any) {
+  function totalEvents(events: EventData[]) {
     return events.length;
   }
 
-  function getEventTracking(events: any) {
+  function getEventTracking(events: EventData[]) {
     const total = totalEvents(events);
     const progress = totalStartedEvents(events);
     const done = totalDoneEvents(events);
@@ -78,7 +80,7 @@ export default function EventHeader() {
     };
   }
 
-  function getEventPercentage(events: any) {
+  function getEventPercentage(events: EventData[]) {
     const progress = totalStartedEvents(events);
     const done = totalDoneEvents(events);
     const notStarted = totalNotStartedEvents(events);
@@ -113,7 +115,7 @@ export default function EventHeader() {
   }
 
   // The averege days between the events
-  function getEventSpacing(events: any) {
+  function getEventSpacing(events: EventData[]) {
     let total = 0;
     for (let i = 0; i < events.length - 1; i++) {
       const date1 = new Date(events[i].date);

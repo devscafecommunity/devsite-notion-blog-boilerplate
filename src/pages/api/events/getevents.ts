@@ -1,7 +1,9 @@
 import { getEventsSimplifiedByDateRecent } from "../../../utils/Events";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+// export default async (req: NextApiRequest, res: NextApiResponse) => {
+
+const getEvents = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const events = await getEventsSimplifiedByDateRecent();
     res.status(200).json(events);
@@ -13,3 +15,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default getEvents;
